@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"math"
 	"reflect"
+	"sigs.k8s.io/json/internal/golang/encoding/json/json_ext"
 	"slices"
 	"strconv"
 	"strings"
@@ -260,6 +261,8 @@ type encodeState struct {
 	// reasonable amount of nested pointers deep.
 	ptrLevel uint
 	ptrSeen  map[any]struct{}
+
+	extensionConfig *json_ext.Config
 }
 
 const startDetectingCyclesAfter = 1000

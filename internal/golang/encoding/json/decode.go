@@ -12,6 +12,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"reflect"
+	"sigs.k8s.io/json/internal/golang/encoding/json/json_ext"
 	"strconv"
 	"strings"
 	"unicode"
@@ -241,6 +242,8 @@ type decodeState struct {
 	preserveInts bool
 
 	disallowDuplicateFields bool
+
+	extensionConfig *json_ext.Config
 }
 
 // readIndex returns the position of the last byte read.

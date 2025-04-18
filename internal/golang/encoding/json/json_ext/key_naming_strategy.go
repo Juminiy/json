@@ -2,7 +2,7 @@ package json_ext
 
 type KeyOption struct {
 	TaggedKeyPrefix   *bool          // `json:"key,prefix:app_"`
-	NoTaggedKeyNaming NamingStrategy // no jsonTag give a named
+	NoTaggedKeyNaming NamingStrategy // no jsonTag give a name
 }
 
 type NamingStrategy interface {
@@ -10,23 +10,23 @@ type NamingStrategy interface {
 	UnmarshalToFieldName(jsonKey string) (fieldName string)
 }
 
-type CustomizeNamingStrategy struct {
+type CustomizeNaming struct {
 	FieldNameToJSONKey func(string) string
 	JSONKeyToFieldName func(string) string
 }
 
-func (s CustomizeNamingStrategy) MarshalToJSONKey(fieldName string) string {
+func (s CustomizeNaming) MarshalToJSONKey(fieldName string) string {
 	return s.FieldNameToJSONKey(fieldName)
 }
 
-func (s CustomizeNamingStrategy) UnmarshalToFieldName(jsonKey string) string {
+func (s CustomizeNaming) UnmarshalToFieldName(jsonKey string) string {
 	return s.JSONKeyToFieldName(jsonKey)
 }
 
-type NormalizedNamingStrategy struct {
+type NormalizedNaming struct {
 	CamelCase          *bool // camelCase
 	SnakeCase          *bool // snake_case
 	KebabCase          *bool // kebab-case
 	ScreamingSnakeCase *bool // SCREAMING_SNAKE_CASE
-	PascalCase         *bool // GolangExportedFieldName, byDefault
+	PascalCase         *bool // GolangExportedFieldName, ByDefault
 }
